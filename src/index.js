@@ -8,6 +8,8 @@ const refs = {
   loader: document.querySelector('.loader-container'),
 };
 
+let isFirstLoad = true;
+
 const condition = {
   hide(element) {
     element.classList.add('is-hidden');
@@ -27,6 +29,11 @@ const slimSelect = new SlimSelect({
 refs.select.addEventListener('change', onSelectChange);
 
 function onSelectChange() {
+  if (isFirstLoad) {
+    isFirstLoad = false;
+    return;
+  }
+
   const breedId = refs.select.value;
 
   condition.hide(refs.catInfo);
@@ -50,10 +57,7 @@ fetchBreeds()
     condition.show(refs.select);
     condition.hide(refs.loader);
   })
-  .catch(() => {
-    onErorr();
-    condition.hide(refs.loader);
-  });
+  .catch(onErorr);
 
 function createSelectOptionMarkup(data) {
   slimSelect.setData(data.map(({ id, name }) => ({ value: id, text: name })));
@@ -81,5 +85,6 @@ function createCatInfoMarkup(data) {
 }
 
 function onErorr() {
+  condition.hide(refs.loader);
   Notify.failure('Oops! Something went wrong! Try reloading the page!');
 }
