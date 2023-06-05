@@ -50,7 +50,10 @@ fetchBreeds()
     condition.show(refs.select);
     condition.hide(refs.loader);
   })
-  .catch(onError);
+  .catch(error => {
+    onErorr();
+    condition.hide(refs.loader);
+  });
 
 function createSelectOptionMarkup(data) {
   slimSelect.setData(data.map(({ id, name }) => ({ value: id, text: name })));
