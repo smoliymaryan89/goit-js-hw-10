@@ -50,7 +50,7 @@ fetchBreeds()
     condition.show(refs.select);
     condition.hide(refs.loader);
   })
-  .catch(error => {
+  .catch(() => {
     onErorr();
     condition.hide(refs.loader);
   });
