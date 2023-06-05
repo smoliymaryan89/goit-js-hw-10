@@ -71,6 +71,7 @@ function createCatInfoMarkup(data) {
       `
     )
     .join('');
+
   refs.catInfo.innerHTML = markup;
 
   condition.show(refs.catInfo);
